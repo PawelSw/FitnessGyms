@@ -4,6 +4,7 @@ using FitnessGyms.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessGyms.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessGymsDbContext))]
-    partial class FitnessGymsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230428182624_FirstFitnessGymProperties")]
+    partial class FirstFitnessGymProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,9 +45,6 @@ namespace FitnessGyms.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Opinions")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

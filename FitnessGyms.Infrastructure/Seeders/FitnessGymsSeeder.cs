@@ -26,6 +26,7 @@ namespace FitnessGyms.Infrastructure.Seeders
                     {
                         Name = "Road to Health Gym",
                         Description = "Best place to keep fit.",
+                        Opinions = "High quality service.",
                         ContactDetails = new()
                         {
                             City = "Rzeszów",
@@ -34,7 +35,7 @@ namespace FitnessGyms.Infrastructure.Seeders
                             PhoneNumber = "+48121212121"
                         }
                     };
-
+                    roadToHealth.EncodeName();
 
                     _dbContext.FitnessGyms.Add(roadToHealth);
                     await _dbContext.SaveChangesAsync();

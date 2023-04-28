@@ -7,12 +7,11 @@
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public FitnessGymContactDetails ContactDetails { get; set; } = default!;
+        public string? Opinions { get; set; }
 
-        //public string EncodedName { get; private set; } = default!;
+        public string EncodedName { get; private set; } = default!;
 
-        //public void EncodeName() => EncodedName = Name.ToLower().Replace(" ", "-");
-
-       public string? About { get; set; }
+        public void EncodeName() => EncodedName = Name.ToLower().Replace(" ", "-");
 
     }
 }

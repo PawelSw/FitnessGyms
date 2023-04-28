@@ -12,8 +12,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
 
-builder.Services.AddDbContext<FitnessGymsDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("FitnessGymsDatabaseConnection")));
+//builder.Services.AddDbContext<FitnessGymDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("FitnessGymsDatabaseConnection")));
 
 
 var app = builder.Build();

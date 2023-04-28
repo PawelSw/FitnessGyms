@@ -9,11 +9,7 @@ namespace FitnessGyms.Infrastructure.Persistence
 
         }
         public DbSet<Domain.Entities.FitnessGym> FitnessGyms { get; set; }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data Source = .\\SQLEXPRESS; Initial Catalog = FitnessGymStorage; Integrated Security = True;Encrypt=False;" +
-        //        "TrustServerCertificate=True;MultipleActiveResultSets=True");
-        //}
+ 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
