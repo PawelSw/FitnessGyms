@@ -1,6 +1,7 @@
 ﻿using FitnessGyms.Domain.Entities;
 using FitnessGyms.Domain.Interfaces;
 using FitnessGyms.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,8 @@ namespace FitnessGyms.Infrastructure.Repositories
             _dbContext.Add(fitnessGym); 
             await _dbContext.SaveChangesAsync();
         }
+
+        public Task<Domain.Entities.FitnessGym?> GetByName(string name)
+                => _dbContext.FitnessGyms.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
     }
 }

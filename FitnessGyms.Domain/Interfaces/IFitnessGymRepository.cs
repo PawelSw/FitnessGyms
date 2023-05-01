@@ -10,6 +10,6 @@ namespace FitnessGyms.Domain.Interfaces
     public interface IFitnessGymRepository
     {
         Task Create(FitnessGym fitnessGym);
-  
+        Task<Domain.Entities.FitnessGym?> GetByName(string name);
     }
 }

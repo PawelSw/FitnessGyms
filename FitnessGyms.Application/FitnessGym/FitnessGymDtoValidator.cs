@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FitnessGyms.Domain.Interfaces;
+using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,32 @@ using System.Threading.Tasks;
 
 namespace FitnessGyms.Application.FitnessGym
 {
-    internal class FitnessGymDtoValidator
+    public class FitnessGymDtoValidator : AbstractValidator<FitnessGymDto>
     {
+        public FitnessGymDtoValidator(IFitnessGymRepository repository)
+        {
+            RuleFor(c => c.Name)
+                .NotEmpty()
+                .MinimumLength(2).WithMessage("Name should have atleast 2 characters")
+                .MaximumLength(20).WithMessage("Name should have maxium of 20 characters")
+                .Custom((value, context) =>
+                {
+                    var existingFitnessGym = repository.GetByName(value).Result;
+                    if (existingFitnessGym != null)
+                    {
+                        context.AddFailure($"{value} is not unique name for car workshop");
+                    }
+                });
+
+            RuleFor(c => c.Description)
+                .NotEmpty().WithMessage("Please enter description");
+
+            RuleFor(c => c.PhoneNumber)
+                .MinimumLength(8)
+                .MaximumLength(12);
+
+
+
+        }
     }
 }
