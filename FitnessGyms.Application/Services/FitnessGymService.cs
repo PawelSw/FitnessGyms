@@ -1,4 +1,6 @@
-﻿using FitnessGyms.Domain.Entities;
+﻿
+using AutoMapper;
+using FitnessGyms.Application.FitnessGym;
 using FitnessGyms.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,12 +13,16 @@ namespace FitnessGyms.Application.Services
     public class FitnessGymService : IFitnessGymService
     {
         private readonly IFitnessGymRepository _fitnessGymRepository;
-        public FitnessGymService(IFitnessGymRepository fitnessGymRepository)
+        private readonly IMapper _mapper;
+        public FitnessGymService(IFitnessGymRepository fitnessGymRepository, IMapper mapper)
         {
            _fitnessGymRepository = fitnessGymRepository;
+            _mapper = mapper;
         }
-        public async Task Create(FitnessGym fitnessGym)
+        public async Task Create(FitnessGymDto fitnessGymDto)
         {
+            var fitnessGym = _mapper.Map<Domain.Entities.FitnessGym>(fitnessGymDto);
+            fitnessGym.EncodeName();
             await _fitnessGymRepository.Create(fitnessGym);
         }
     }

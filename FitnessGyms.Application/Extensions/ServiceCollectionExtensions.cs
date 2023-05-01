@@ -1,4 +1,5 @@
-﻿using FitnessGyms.Application.Services;
+﻿using FitnessGyms.Application.Mappings;
+using FitnessGyms.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace FitnessGyms.Application.Extensions
         public static void AddApplication(this IServiceCollection services)
         {
            services.AddScoped<IFitnessGymService, FitnessGymService>();
+            services.AddAutoMapper(typeof(FitnessGymMappingProfile));
 
         }
     }

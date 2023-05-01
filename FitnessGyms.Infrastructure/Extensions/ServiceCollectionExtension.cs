@@ -20,7 +20,7 @@ namespace FitnessGyms.Infrastructure.Extensions
             services.AddDbContext<FitnessGymsDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("FitnessGymsDatabaseConnection")));
 
-            services.AddScoped<FitnessGymsSeeder>();
+            services.AddScoped<FitnessGymSeeder>();
             services.AddScoped<IFitnessGymRepository, FitnessGymRepository>();
 
         }

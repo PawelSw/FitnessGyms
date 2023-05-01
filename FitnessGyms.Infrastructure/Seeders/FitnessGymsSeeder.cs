@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace FitnessGyms.Infrastructure.Seeders
 {
-    public class FitnessGymsSeeder
+    public class FitnessGymSeeder
     {
         private readonly FitnessGymsDbContext _dbContext;
 
-        public FitnessGymsSeeder(FitnessGymsDbContext dbContext)
+        public FitnessGymSeeder(FitnessGymsDbContext dbContext)
         {
             _dbContext = dbContext;
         }

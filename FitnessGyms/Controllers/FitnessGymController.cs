@@ -1,4 +1,5 @@
-﻿using FitnessGyms.Application.Services;
+﻿using FitnessGyms.Application.FitnessGym;
+using FitnessGyms.Application.Services;
 using FitnessGyms.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace FitnessGyms.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(FitnessGym fitnessGym)
+        public async Task<IActionResult> Create(FitnessGymDto fitnessGym)
         {
             await _fitnessGymService.Create(fitnessGym); 
            return RedirectToAction(nameof(Create)); // TODO Refactor
