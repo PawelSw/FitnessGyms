@@ -22,6 +22,11 @@ namespace FitnessGyms.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(FitnessGymDto fitnessGym)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(fitnessGym);
+
+            }
             await _fitnessGymService.Create(fitnessGym); 
            return RedirectToAction(nameof(Create)); // TODO Refactor
         }
