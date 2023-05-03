@@ -1,13 +1,9 @@
-﻿
-
-
-
-using FitnessGyms.Application.FitnessGym;
+﻿using FitnessGyms.Application.FitnessGym.Commands.CreateFitnessGym;
 using FitnessGyms.Application.Mappings;
-using FitnessGyms.Application.Services;
 using FitnessGyms.Domain.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -21,10 +17,11 @@ namespace FitnessGyms.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-           services.AddScoped<IFitnessGymService, FitnessGymService>();
+      
             services.AddAutoMapper(typeof(FitnessGymMappingProfile));
+            services.AddMediatR(typeof(CreateFitnessGymCommand));
 
-            services.AddValidatorsFromAssemblyContaining<FitnessGymDtoValidator>()
+            services.AddValidatorsFromAssemblyContaining<CreateFitnessGymCommandValidator>()
                     .AddFluentValidationAutoValidation()
                     .AddFluentValidationClientsideAdapters();
 

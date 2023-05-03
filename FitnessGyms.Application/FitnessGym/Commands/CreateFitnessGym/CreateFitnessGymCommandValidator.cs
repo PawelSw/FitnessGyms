@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitnessGyms.Application.FitnessGym
+namespace FitnessGyms.Application.FitnessGym.Commands.CreateFitnessGym
 {
-    public class FitnessGymDtoValidator : AbstractValidator<FitnessGymDto>
+    public class CreateFitnessGymCommandValidator : AbstractValidator<CreateFitnessGymCommand>
     {
-        public FitnessGymDtoValidator(IFitnessGymRepository repository)
+        public CreateFitnessGymCommandValidator(IFitnessGymRepository repository)
         {
             RuleFor(c => c.Name)
                 .NotEmpty()

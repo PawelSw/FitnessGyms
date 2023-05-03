@@ -1,20 +1,24 @@
 ﻿using FitnessGyms.Application.FitnessGym;
-using FitnessGyms.Application.Services;
+using FitnessGyms.Application.FitnessGym.Commands.CreateFitnessGym;
+using FitnessGyms.Application.FitnessGym.Querries.GetAllFitnessGyms;
 using FitnessGyms.Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessGyms.Controllers
 {
     public class FitnessGymController : Controller
     {
-        private readonly IFitnessGymService _fitnessGymService;
-        public FitnessGymController(IFitnessGymService fitnessGymService) 
+        private readonly IMediator _mediator;
+
+        public FitnessGymController(IMediator mediator)
         {
-            _fitnessGymService = fitnessGymService;
+            _mediator = mediator;
         }
+
         public async Task<IActionResult> Index()
         {
-            var fitnessGyms = await _fitnessGymService.GetAll();
+            var fitnessGyms = await _mediator.Send(new GetAllFitnessGymsQuerry());
             return View(fitnessGyms);
         }
         public IActionResult Create() 
@@ -24,14 +28,14 @@ namespace FitnessGyms.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(FitnessGymDto fitnessGym)
+        public async Task<IActionResult> Create(CreateFitnessGymCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return View(fitnessGym);
+                return View(command);
 
             }
-            await _fitnessGymService.Create(fitnessGym); 
+            await _mediator.Send(command);
            return RedirectToAction(nameof(Index)); 
         }
     }
