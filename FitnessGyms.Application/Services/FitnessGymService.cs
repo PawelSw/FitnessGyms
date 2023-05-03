@@ -25,5 +25,12 @@ namespace FitnessGyms.Application.Services
             fitnessGym.EncodeName();
             await _fitnessGymRepository.Create(fitnessGym);
         }
+
+        public async Task<IEnumerable<FitnessGymDto>> GetAll()
+        {
+            var fitnessGyms = await _fitnessGymRepository.GetAll();
+            var dtos = _mapper.Map<IEnumerable<FitnessGymDto>>(fitnessGyms);
+            return dtos;
+        }
     }
 }

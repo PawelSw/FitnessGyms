@@ -11,5 +11,6 @@ namespace FitnessGyms.Domain.Interfaces
     {
         Task Create(FitnessGym fitnessGym);
         Task<Domain.Entities.FitnessGym?> GetByName(string name);
+        Task <IEnumerable<FitnessGym>> GetAll();
     }
 }

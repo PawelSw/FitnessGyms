@@ -13,17 +13,22 @@ namespace FitnessGyms.Infrastructure.Repositories
     public class FitnessGymRepository : IFitnessGymRepository
     {
         private readonly FitnessGymsDbContext _dbContext;
-        public FitnessGymRepository(FitnessGymsDbContext dbContext) 
+        public FitnessGymRepository(FitnessGymsDbContext dbContext)
         {
             _dbContext = dbContext;
         }
         public async Task Create(FitnessGym fitnessGym)
         {
-            _dbContext.Add(fitnessGym); 
+            _dbContext.Add(fitnessGym);
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<FitnessGym>> GetAll()
+         => await _dbContext.FitnessGyms.ToListAsync();
+
+
+
         public Task<Domain.Entities.FitnessGym?> GetByName(string name)
-                => _dbContext.FitnessGyms.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
+         => _dbContext.FitnessGyms.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
     }
 }

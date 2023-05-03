@@ -12,7 +12,11 @@ namespace FitnessGyms.Controllers
         {
             _fitnessGymService = fitnessGymService;
         }
-
+        public async Task<IActionResult> Index()
+        {
+            var fitnessGyms = await _fitnessGymService.GetAll();
+            return View(fitnessGyms);
+        }
         public IActionResult Create() 
         {
             return View();
@@ -28,7 +32,7 @@ namespace FitnessGyms.Controllers
 
             }
             await _fitnessGymService.Create(fitnessGym); 
-           return RedirectToAction(nameof(Create)); // TODO Refactor
+           return RedirectToAction(nameof(Index)); 
         }
     }
 }
