@@ -26,6 +26,8 @@ namespace FitnessGyms.Infrastructure.Repositories
         public async Task<IEnumerable<FitnessGym>> GetAll()
          => await _dbContext.FitnessGyms.ToListAsync();
 
+        public async Task<FitnessGym> GetByEncodedName(string encodedName)
+         => await _dbContext.FitnessGyms.FirstAsync(cw => cw.EncodedName == encodedName);
 
 
         public Task<Domain.Entities.FitnessGym?> GetByName(string name)

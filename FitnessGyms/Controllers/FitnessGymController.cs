@@ -1,6 +1,7 @@
 ﻿using FitnessGyms.Application.FitnessGym;
 using FitnessGyms.Application.FitnessGym.Commands.CreateFitnessGym;
 using FitnessGyms.Application.FitnessGym.Querries.GetAllFitnessGyms;
+using FitnessGyms.Application.FitnessGym.Querries.GetFitnessGymByEncodedName;
 using FitnessGyms.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,12 @@ namespace FitnessGyms.Controllers
             return View();
         }
 
+        [Route("FitnessGym/{encodedName}/Details")]
+        public async Task<IActionResult> Details(string encodedName)
+        {
+            var dto = await _mediator.Send(new GetFitnessGymByEncodedNameQuerry(encodedName));
+            return View(dto);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateFitnessGymCommand command)
