@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FitnessGyms.Application.FitnessGym;
+using FitnessGyms.Application.FitnessGym.Commands.EditFitnessGym;
 using FitnessGyms.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace FitnessGyms.Application.Mappings
              .ForMember(dto => dto.City, opt => opt.MapFrom(src => src.ContactDetails.City))
              .ForMember(dto => dto.PostalCode, opt => opt.MapFrom(src => src.ContactDetails.PostalCode))
              .ForMember(dto => dto.PhoneNumber, opt => opt.MapFrom(src => src.ContactDetails.PhoneNumber));
+
+            CreateMap<FitnessGymDto, EditFitnessGymCommand>();
 
         }
     }

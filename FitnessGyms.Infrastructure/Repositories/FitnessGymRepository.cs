@@ -17,6 +17,11 @@ namespace FitnessGyms.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public Task Commit()
+         => _dbContext.SaveChangesAsync();
+
+
         public async Task Create(FitnessGym fitnessGym)
         {
             _dbContext.Add(fitnessGym);

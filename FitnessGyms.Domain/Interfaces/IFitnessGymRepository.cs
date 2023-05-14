@@ -13,5 +13,6 @@ namespace FitnessGyms.Domain.Interfaces
         Task<Domain.Entities.FitnessGym?> GetByName(string name);
         Task <IEnumerable<FitnessGym>> GetAll();
         Task <FitnessGym> GetByEncodedName(string encodedName);
+        Task Commit();
     }
 }
