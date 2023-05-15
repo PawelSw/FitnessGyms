@@ -2,6 +2,7 @@
 using FitnessGyms.Infrastructure.Persistence;
 using FitnessGyms.Infrastructure.Repositories;
 using FitnessGyms.Infrastructure.Seeders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,8 @@ namespace FitnessGyms.Infrastructure.Extensions
             services.AddDbContext<FitnessGymsDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("FitnessGymsDatabaseConnection")));
 
+            services.AddDefaultIdentity<IdentityUser>()
+              .AddEntityFrameworkStores<FitnessGymsDbContext>();
             services.AddScoped<FitnessGymSeeder>();
             services.AddScoped<IFitnessGymRepository, FitnessGymRepository>();
 
