@@ -6,6 +6,7 @@ using FitnessGyms.Application.FitnessGym.Querries.GetAllFitnessGyms;
 using FitnessGyms.Application.FitnessGym.Querries.GetFitnessGymByEncodedName;
 using FitnessGyms.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessGyms.Controllers
@@ -26,10 +27,7 @@ namespace FitnessGyms.Controllers
             var fitnessGyms = await _mediator.Send(new GetAllFitnessGymsQuerry());
             return View(fitnessGyms);
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
+
 
         [Route("FitnessGym/{encodedName}/Details")]
         public async Task<IActionResult> Details(string encodedName)
@@ -46,6 +44,13 @@ namespace FitnessGyms.Controllers
             return View(model);
         }
 
+        [Authorize]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CreateFitnessGymCommand command)
         {

@@ -1,4 +1,5 @@
-﻿using FitnessGyms.Application.FitnessGym.Commands.CreateFitnessGym;
+﻿using FitnessGyms.Application.ApplicationUser;
+using FitnessGyms.Application.FitnessGym.Commands.CreateFitnessGym;
 using FitnessGyms.Application.Mappings;
 using FitnessGyms.Domain.Interfaces;
 using FluentValidation;
@@ -17,7 +18,7 @@ namespace FitnessGyms.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-      
+            services.AddScoped<IUserContext, UserContext>();
             services.AddAutoMapper(typeof(FitnessGymMappingProfile));
             services.AddMediatR(typeof(CreateFitnessGymCommand));
 

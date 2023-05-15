@@ -1,4 +1,6 @@
-﻿namespace FitnessGyms.Domain.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace FitnessGyms.Domain.Entities
 {
     public class FitnessGym
     {
@@ -8,6 +10,8 @@
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public FitnessGymContactDetails ContactDetails { get; set; } = default!;
         public string? Opinions { get; set; }
+        public string? CreatedById { get; set; }
+        public IdentityUser? CreatedBy { get; set; }
 
         public string EncodedName { get; private set; } = default!;
 

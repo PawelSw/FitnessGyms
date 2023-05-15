@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FitnessGyms.Application.ApplicationUser;
 using FitnessGyms.Domain.Interfaces;
 using MediatR;
 using System;
@@ -13,16 +14,19 @@ namespace FitnessGyms.Application.FitnessGym.Commands.CreateFitnessGym
     {
         private readonly IFitnessGymRepository _fitnessGymRepository;
         private readonly IMapper _mapper;
-        public CreateFitnessGymCommandHandler(IFitnessGymRepository fitnessGymRepository, IMapper mapper) 
+        private readonly IUserContext _userContext;
+        public CreateFitnessGymCommandHandler(IFitnessGymRepository fitnessGymRepository, IMapper mapper, IUserContext userContext)
         {
-           _mapper = mapper;
-           _fitnessGymRepository = fitnessGymRepository;
-        
+            _mapper = mapper;
+            _fitnessGymRepository = fitnessGymRepository;
+            _userContext = userContext;
+
         }
         public async Task<Unit> Handle(CreateFitnessGymCommand request, CancellationToken cancellationToken)
         {
             var fitnessGym = _mapper.Map<Domain.Entities.FitnessGym>(request);
             fitnessGym.EncodeName();
+            fitnessGym.CreatedById = _userContext.GetCurrentUser().Id;
             await _fitnessGymRepository.Create(fitnessGym);
             return Unit.Value;
         }
