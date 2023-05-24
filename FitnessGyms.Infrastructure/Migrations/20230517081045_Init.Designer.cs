@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessGyms.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessGymsDbContext))]
-    [Migration("20230515194747_DeleteCreatedById")]
-    partial class DeleteCreatedById
+    [Migration("20230517081045_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace FitnessGyms.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -51,6 +54,8 @@ namespace FitnessGyms.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
 
                     b.ToTable("FitnessGyms");
                 });
@@ -259,6 +264,10 @@ namespace FitnessGyms.Infrastructure.Migrations
 
             modelBuilder.Entity("FitnessGyms.Domain.Entities.FitnessGym", b =>
                 {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
                     b.OwnsOne("FitnessGyms.Domain.Entities.FitnessGymContactDetails", "ContactDetails", b1 =>
                         {
                             b1.Property<int>("FitnessGymId")
@@ -286,6 +295,8 @@ namespace FitnessGyms.Infrastructure.Migrations
 
                     b.Navigation("ContactDetails")
                         .IsRequired();
+
+                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

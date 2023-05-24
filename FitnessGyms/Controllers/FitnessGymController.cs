@@ -40,6 +40,12 @@ namespace FitnessGyms.Controllers
         public async Task<IActionResult> Edit(string encodedName)
         {
             var dto = await _mediator.Send(new GetFitnessGymByEncodedNameQuerry(encodedName));
+
+            if (!dto.IsEditable)
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
+
             EditFitnessGymCommand model = _mapper.Map<EditFitnessGymCommand>(dto);
             return View(model);
         }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FitnessGyms.Application.ApplicationUser;
 using FitnessGyms.Domain.Interfaces;
 using MediatR;
 using System;
@@ -13,15 +14,27 @@ namespace FitnessGyms.Application.FitnessGym.Commands.EditFitnessGym
     {
         private readonly IFitnessGymRepository _fitnessGymRepository;
         private readonly IMapper _mapper;
+        private readonly IUserContext _userContext;
 
-        public EditFitnessGymCommandHandler(IFitnessGymRepository fitnessGymRepository, IMapper mapper)
+
+        public EditFitnessGymCommandHandler(IFitnessGymRepository fitnessGymRepository, IMapper mapper, IUserContext userContext)
         {
             _fitnessGymRepository = fitnessGymRepository;
             _mapper = mapper;
+            _userContext = userContext;
         }
         public async Task<Unit> Handle(EditFitnessGymCommand request, CancellationToken cancellationToken)
         {
-           var FitnessGym = await _fitnessGymRepository.GetByEncodedName(request.EncodedName);
+           var FitnessGym = await _fitnessGymRepository.GetByEncodedName(request.EncodedName!);
+
+            var user = _userContext.GetCurrentUser();
+            var isEditable = user != null && FitnessGym.CreatedById == user.Id;
+
+            if (!isEditable)
+            {
+                return Unit.Value;
+            }
+
             FitnessGym.Description = request.Description;
             FitnessGym.Opinions = request.Opinions;
 

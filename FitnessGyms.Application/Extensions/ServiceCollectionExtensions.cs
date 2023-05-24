@@ -1,4 +1,7 @@
-﻿using FitnessGyms.Application.ApplicationUser;
+﻿
+using AutoMapper;
+using FitnessGyms.Application.ApplicationUser;
+using FitnessGyms.Application.FitnessGym;
 using FitnessGyms.Application.FitnessGym.Commands.CreateFitnessGym;
 using FitnessGyms.Application.Mappings;
 using FitnessGyms.Domain.Interfaces;
@@ -19,8 +22,16 @@ namespace FitnessGyms.Application.Extensions
         public static void AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IUserContext, UserContext>();
-            services.AddAutoMapper(typeof(FitnessGymMappingProfile));
+            //services.AddAutoMapper(typeof(FitnessGymMappingProfile));
             services.AddMediatR(typeof(CreateFitnessGymCommand));
+
+            services.AddScoped(provider => new MapperConfiguration(cfg =>
+            {
+                var scope = provider.CreateScope();
+                var userContext = scope.ServiceProvider.GetRequiredService<IUserContext>();
+                cfg.AddProfile(new FitnessGymMappingProfile(userContext));
+            }).CreateMapper()
+          );
 
             services.AddValidatorsFromAssemblyContaining<CreateFitnessGymCommandValidator>()
                     .AddFluentValidationAutoValidation()
