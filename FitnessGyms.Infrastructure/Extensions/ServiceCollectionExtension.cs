@@ -22,6 +22,7 @@ namespace FitnessGyms.Infrastructure.Extensions
                 configuration.GetConnectionString("FitnessGymsDatabaseConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
               .AddEntityFrameworkStores<FitnessGymsDbContext>();
             services.AddScoped<FitnessGymSeeder>();
             services.AddScoped<IFitnessGymRepository, FitnessGymRepository>();

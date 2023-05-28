@@ -50,13 +50,13 @@ namespace FitnessGyms.Controllers
             return View(model);
         }
 
-        [Authorize]
+        [Authorize(Roles ="Owner")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Owner")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateFitnessGymCommand command)
         {

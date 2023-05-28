@@ -24,9 +24,14 @@ namespace FitnessGyms.Application.FitnessGym.Commands.CreateFitnessGym
         }
         public async Task<Unit> Handle(CreateFitnessGymCommand request, CancellationToken cancellationToken)
         {
+            var currentUser = _userContext.GetCurrentUser();
+            if (currentUser == null || !currentUser.IsInRole("Owner"))
+            {
+                return Unit.Value;
+            }
             var fitnessGym = _mapper.Map<Domain.Entities.FitnessGym>(request);
             fitnessGym.EncodeName();
-            fitnessGym.CreatedById = _userContext.GetCurrentUser().Id;
+            fitnessGym.CreatedById = currentUser.Id;
             await _fitnessGymRepository.Create(fitnessGym);
             return Unit.Value;
         }
